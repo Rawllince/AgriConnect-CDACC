@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Register | AgriConnect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-green: #1b5e20;
+      --fresh-green: #2e7d32;
+      --light-green: #4caf50;
+      --light-green-bg: #e8f5e9;
+      --harvest-gold: #f57c00;
+      --harvest-gold-hover: #ef6c00;
+      --soft-gold: #ffb74d;
+      --card-bg: #ffffff;
+      --page-bg: #f1f8e9;
+      --text-dark: #1c2820;
+      --text-muted: #556b5d;
+      --border-color: #c8e6c9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e8f5e9 0%, #fff8e1 50%, #e3f2fd 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      background: linear-gradient(90deg, #1b5e20, #2e7d32);
+      color: #ffffff;
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .logo-img {
+      height: 42px;
+      width: auto;
+      background: #ffffff;
+      padding: 3px 6px;
+      border-radius: 8px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: #e8f5e9;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #ffd54f;
+    }
+
+    .nav-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    /*  MAIN */
+    .main-wrapper {
+      max-width: 1100px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 0 20px;
+      flex: 1;
+    }
+
+    .page-banner {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .page-banner h1 {
+      color: var(--primary-green);
+      font-size: 34px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .page-banner p {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    /*  AUTH GRID */
+    .auth-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .auth-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 12px 30px rgba(27, 94, 32, 0.1);
+      border-top: 6px solid var(--fresh-green);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .auth-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(27, 94, 32, 0.14);
+    }
+
+    .auth-card.register-card {
+      border-top-color: var(--harvest-gold);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .badge-green {
+      background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+      color: var(--primary-green);
+    }
+
+    .badge-gold {
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      color: var(--harvest-gold);
+    }
+
+    .auth-card h2 {
+      font-size: 24px;
+      margin-bottom: 22px;
+      color: var(--text-dark);
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 15px;
+      background-color: #fafafa;
+      transition: all 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--fresh-green);
+      background-color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.15);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 14px;
+      top: 38px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-muted);
+      user-select: none;
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+      font-size: 14px;
+    }
+
+    .form-options label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      font-weight: 400;
+      cursor: pointer;
+    }
+
+    .form-options a {
+      color: var(--fresh-green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .form-options a:hover {
+      text-decoration: underline;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-green {
+      background: linear-gradient(135deg, #2e7d32, #1b5e20);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+    }
+
+    .btn-green:hover {
+      background: linear-gradient(135deg, #1b5e20, #0d3b12);
+      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #f57c00, #ef6c00);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(245, 124, 0, 0.35);
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #ef6c00, #e65100);
+      box-shadow: 0 6px 20px rgba(245, 124, 0, 0.45);
+    }
+
+    .btn-outline-light {
+      padding: 8px 16px;
+      border: 1.5px solid #ffffff;
+      color: #ffffff;
+      border-radius: 8px;
+      font-size: 14px;
+      width: auto;
+      background: transparent;
+    }
+
+    .btn-outline-light:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .btn-gold-sm {
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #f57c00, #ef6c00);
+      color: #ffffff;
+      border-radius: 8px;
+      font-size: 14px;
+      width: auto;
+    }
+
+    /* Message */
+    .form-message {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      display: none;
+      text-align: center;
+    }
+
+    .form-message.success {
+      background: #e8f5e9;
+      color: #1b5e20;
+      border: 1px solid #a5d6a7;
+      display: block;
+    }
+
+    .form-message.error {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ef9a9a;
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(90deg, #1b5e20, #2e7d32);
+      color: #e8f5e9;
+      text-align: center;
+      padding: 26px 16px;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #ffd54f;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 850px) {
+      .auth-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .page-banner h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="navbar">
+    <a href="home.html" class="logo-link">
+      <img src="logo.jpg" alt="AgriConnect" class="logo-img" onerror="this.style.display='none'">
+      <span>AgriConnect</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="catalogue.html">Produce Catalogue</a></li>
+      <li><a href="about-us.html">About Us</a></li>
+      <li><a href="farmer-dashboard.html">Farmer Profile</a></li>
+      <li><a href="cart.html">Cart (0)</a></li>
+      <li><a href="contact-us.html">Contact Us</a></li>
+    </ul>
+
+    <div class="nav-btns">
+      <a href="auth.html" class="btn btn-outline-light">Login</a>
+      <a href="auth.html" class="btn btn-gold-sm">Register</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main-wrapper">
+    <div class="page-banner">
+      <h1>Welcome to AgriConnect</h1>
+      <p>Connecting Kenyan farmers directly with fresh produce buyers across every county.</p>
+    </div>
+
+    <div class="auth-grid">
+
+      <!-- LOGIN CARD -->
+      <section class="auth-card">
+        <span class="badge badge-green">Existing Users</span>
+        <h2>Login to Account</h2>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="login-id">Email or Phone Number</label>
+            <input type="text" id="login-id" placeholder="e.g. 0712 345 678 or farmer@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="login-pass">Password</label>
+            <input type="password" id="login-pass" placeholder="Enter your password" required>
+            <span class="password-toggle" onclick="togglePassword('login-pass', this)">Show</span>
+          </div>
+
+          <div class="form-options">
+            <label><input type="checkbox"> Remember me</label>
+            <a href="#">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-green">Login to Dashboard</button>
+          <div class="form-message" id="loginMessage"></div>
+        </form>
+      </section>
+
+      <!-- REGISTER CARD -->
+      <section class="auth-card register-card">
+        <span class="badge badge-gold">New Users</span>
+        <h2 id="registerTitle">Create New Account</h2>
+
+        <form id="registerForm">
+          <div class="form-group">
+            <label for="role">Select Account Role</label>
+            <select id="role">
+              <option value="buyer">Buyer (Individual / Restaurant / Retailer)</option>
+              <option value="farmer">Farmer (Produce Seller)</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullname">Full Name</label>
+              <input type="text" id="fullname" placeholder="e.g. Rawllince Okello" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number (M-Pesa)</label>
+              <input type="tel" id="phone" placeholder="e.g. 0712 345 678" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="county">County / Location</label>
+              <input type="text" id="county" placeholder="e.g. Kisii, Nakuru, Nairobi" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-pass">Create Password</label>
+              <input type="password" id="reg-pass" placeholder="Min. 8 characters" required>
+              <span class="password-toggle" onclick="togglePassword('reg-pass', this)">Show</span>
+            </div>
+          </div>
+                      <div class="form-group">
+            <label for="role">Select Account Role</label>
+            <select id="role">
+              <option value="buyer">Buyer (Individual / Restaurant / Retailer)</option>
+              <option value="farmer">Farmer (Produce Seller)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="reg-email">Email Address</label>
+            <input type="email" id="reg-email" placeholder="e.g. rawllince@email.com" required>
+          </div>
+
+          <button type="submit" class="btn btn-gold">Create Free Account</button>
+          <div class="form-message" id="registerMessage"></div>
+        </form>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p style="margin-bottom: 8px;">
+      <strong>Quick Links:</strong>
+      <a href="home.html">Home</a> |
+      <a href="catalogue.html">Produce Catalogue</a> |
+      <a href="#">About Us</a> |
+      <a href="#">Farmer Profiles</a> |
+      <a href="#">Contact Us</a>
+    </p>
+    <p style="margin-bottom: 6px;">Contact: support@agriconnect.co.ke | +254 700 000 000</p>
+    <p>&copy; 2026 AgriConnect. All Rights Reserved.</p>
+  </footer>
+
+   <!-- 1. Load your shared API & login() function from script.js -->
+  <script src="script.js"></script>
+
+  <!-- 2. Page-specific UI & Form Handlers -->
+   <script>
+    // Password Show / Hide
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === "password") {
+        input.type = "text";
+        btn.textContent = "Hide";
+      } else {
+        input.type = "password";
+        btn.textContent = "Show";
+      }
+    }
+
+    // Change Register title based on role
+    document.getElementById('role').addEventListener('change', function() {
+      const title = document.getElementById('registerTitle');
+      if (this.value === 'farmer') {
+        title.textContent = "Register as a Farmer";
+      } else {
+        title.textContent = "Create Buyer Account";
+      }
+    });
+
+    // Login Form (Connected to script.js login function)
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const message = document.getElementById('loginMessage');
+      const id = document.getElementById('login-id').value.trim();
+      const pass = document.getElementById('login-pass').value;
+
+      if (id.length < 5 || pass.length < 4) {
+        message.className = 'form-message error';
+        message.textContent = 'Please enter valid login details.';
+        return;
+      }
+
+      message.className = 'form-message';
+      message.style.display = 'block';
+      message.textContent = 'Logging in...';
+
+      // Calls login() from script.js
+      const result = await login(id, pass);
+
+      if (result.success) {
+        message.className = 'form-message success';
+        message.textContent = 'Login successful! Redirecting...';
+        setTimeout(() => {
+          window.location.href = 'catalogue.html';
+        }, 1200);
+      } else {
+        message.className = 'form-message error';
+        message.textContent = result.message || 'Invalid credentials.';
+      }
+    });
+
+    // Register Form (Connected to script.js register function)
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const message = document.getElementById('registerMessage');
+
+            const userData = {
+        name: document.getElementById('fullname').value.trim(),
+        email: document.getElementById('reg-email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        role: document.getElementById('role').value,
+        location: document.getElementById('county').value.trim(),
+        password: document.getElementById('reg-pass').value
+      };
+
+
+      if (userData.name.length < 3 || userData.phone.length < 10 || userData.password.length < 6) {
+        message.className = 'form-message error';
+        message.textContent = 'Please fill all fields correctly (password min 6 characters).';
+        return;
+      }
+
+      message.className = 'form-message';
+      message.style.display = 'block';
+      message.textContent = 'Creating account...';
+
+      // Calls register() from script.js
+      const result = await register(userData);
+
+      if (result.success) {
+        message.className = 'form-message success';
+        message.textContent = 'Account created successfully! Redirecting...';
+        setTimeout(() => {
+          window.location.href = 'catalogue.html';
+        }, 1400);
+      } else {
+        message.className = 'form-message error';
+        message.textContent = result.message || 'Registration failed.';
+      }
+    });
+       
+
+  </script>
+<script src="script.js"></script>
+</body>
+</html>

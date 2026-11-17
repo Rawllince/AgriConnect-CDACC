@@ -1,0 +1,856 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us | AgriConnect</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --green: #198754;
+            --dark-green: #105c3a;
+            --light-green: #eaf7ef;
+            --orange: #f59e0b;
+            --dark: #183528;
+            --text: #65736b;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background: #f8fbf8;
+            color: var(--dark);
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVIGATION */
+        header {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 3px 15px rgba(0,0,0,.07);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: auto;
+            padding: 16px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--green);
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 23px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 800;
+            transition: .3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: var(--green);
+        }
+
+        .nav-btn {
+            background: var(--green);
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 25px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 25px;
+            color: var(--green);
+            cursor: pointer;
+        }
+
+        /* HERO */
+        .hero {
+            background:
+                linear-gradient(rgba(9,65,39,.88), rgba(9,65,39,.75)),
+                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85')
+                center/cover;
+
+            padding: 85px 6%;
+            text-align: center;
+            color: white;
+        }
+
+        .hero small {
+            color: #ffc65c;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .hero h1 {
+            font-size: clamp(35px, 5vw, 55px);
+            margin: 10px 0;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #e6f4e9;
+            font-size: 17px;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 75px 5%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-heading small {
+            color: var(--green);
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .section-heading h2 {
+            font-size: 35px;
+            margin: 8px 0;
+        }
+
+        .section-heading p {
+            color: var(--text);
+        }
+
+        /* CONTACT LAYOUT */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        /* CONTACT INFORMATION */
+        .contact-info {
+            background: linear-gradient(145deg, #12633f, #198754);
+            padding: 38px;
+            color: white;
+            border-radius: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-info::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.07);
+            bottom: -90px;
+            right: -70px;
+        }
+
+        .contact-info h2 {
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .contact-info > p {
+            color: #d9f0e1;
+            margin-bottom: 35px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 27px;
+        }
+
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            background: rgba(255,255,255,.15);
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            font-size: 20px;
+            color: #ffcb64;
+        }
+
+        .info-item h4 {
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+
+        .info-item p,
+        .info-item a {
+            color: #e1f3e7;
+            font-size: 14px;
+        }
+
+        .info-item a:hover {
+            color: #ffc65c;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            background: rgba(255,255,255,.15);
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+        .social-links a:hover {
+            background: var(--orange);
+            transform: translateY(-4px);
+        }
+
+        /* CONTACT FORM */
+        .contact-form {
+            background: rgb(192, 177, 16);
+            padding: 38px;
+            border-radius: 22px;
+            box-shadow: 0 8px 30px rgba(0,0,0,.06);
+        }
+
+        .contact-form h2 {
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .contact-form > p {
+            color: var(--text);
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 800;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #dce7df;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            background: #fbfdfb;
+            transition: .3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(25,135,84,.10);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .submit-btn {
+            border: none;
+            background: var(--green);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-3px);
+        }
+
+        .submit-btn i {
+            margin-left: 8px;
+        }
+
+        .success-message {
+            display: none;
+            background: #e7f8ed;
+            color: #12633f;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 10px;
+            font-weight: 800;
+        }
+
+        /* LOCATION */
+        .location-section {
+            background: var(--light-green);
+            padding: 65px 5%;
+            text-align: center;
+        }
+
+        .location-section h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .location-section p {
+            color: var(--text);
+            margin-bottom: 25px;
+        }
+
+        .location-box {
+            max-width: 950px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.05);
+        }
+
+        .location-box i {
+            color: var(--green);
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .location-box h3 {
+            margin-bottom: 8px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #102c20;
+            color: white;
+            padding: 45px 5% 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 35px;
+        }
+
+        footer h3 {
+            color: #ffc65c;
+            margin-bottom: 15px;
+        }
+
+        footer p,
+        footer a {
+            color: #c9d9ce;
+            font-size: 14px;
+        }
+
+        footer a {
+            display: block;
+            margin: 8px 0;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .copyright {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid #345443;
+            text-align: center;
+            font-size: 13px;
+            color: #c9d9ce;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 25px;
+                flex-direction: column;
+                box-shadow: 0 10px 15px rgba(0,0,0,.08);
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .contact-form,
+            .contact-info {
+                padding: 25px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 65px 6%;
+            }
+
+            .container {
+                padding: 55px 6%;
+            }
+
+            .section-heading h2 {
+                font-size: 29px;
+            }
+        }
+        .social-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; /* Change to 'flex-start' if you want them left-aligned */
+  gap: 16px;
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #2e7d32;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 18px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.social-links a:hover {
+  background-color: #f57c00;
+  transform: translateY(-3px);
+}
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<header>
+    <nav>
+        <a href="home.html" class="logo">
+            <i class="fas fa-leaf"></i>
+            Agri<span>Connect</span>
+        </a>
+
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="home.html">Home</a>
+            <a href="catalogue.html">Produce</a>
+            <a href="about-us.html">About Us</a>
+            <a href="contact-us.html" class="active">Contact Us</a>
+            <a href="farmer-profile.html">Farmer Profile</a>
+            <a href="order-tracking.html">Track Order</a>
+            <a href="cart.html">Cart</a>
+            <a href="auth.html" class="nav-btn">Login / Register</a>
+        </div>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <small>WE ARE HERE TO HELP</small>
+
+    <h1>Contact AgriConnect</h1>
+
+    <p>
+        Have a question, suggestion or need assistance?
+        Get in touch with our team. We would love to hear from you.
+    </p>
+</section>
+
+<!-- CONTACT SECTION -->
+<main class="container">
+
+    <div class="section-heading">
+        <small>GET IN TOUCH</small>
+        <h2>Let's Start a Conversation</h2>
+        <p>
+            Contact us for support, partnership opportunities
+            or enquiries about our agricultural marketplace.
+        </p>
+    </div>
+
+    <div class="contact-layout">
+<main>
+     <!-- CONTACT INFORMATION -->
+        <div class="contact-info">
+
+            <h2>Contact Information</h2>
+
+            <p>
+                Reach out to us using the contact details below.
+                We look forward to connecting with you.
+            </p>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+
+                <div>
+                    <h4>Phone Number</h4>
+                    <a href="tel:+254726737491">
+                        +254 726737491/ 020 1234567
+                    </a>
+                    
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+
+                <div>
+                    <h4>Email Address</h4>
+                    <a href="support@agriconnect.co.ke">
+                        support@agriconnect.co.ke
+                    </a>
+                    
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-location-dot"></i>
+                </div>
+
+                <div>
+                    <h4>Our Location</h4>
+                    <p>Nairobi: Times Towers, Third Floor </p>
+                    <p>Rift Valley: Nakuru Town Baracom house, 2nd Floor</p>
+                    <p>Nyanza Region: Kisumu Jaramogi Towers, 5th Floor</b></p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+
+                <div>
+                    <h4>Working Hours</h4>
+                    <p>Monday – Friday</p>
+                    <p>8:00 AM – 5:00 PM</p>
+                    <p>Saturdays</p>
+                    <p>8:30 AM – 12:00 NOON</p>
+
+                </div>
+            </div>
+
+            
+
+        </div>
+
+</main>
+       
+        <!-- CONTACT FORM -->
+         <sidebar>
+        <div class="contact-form">
+
+            <h2>Send Us a Message</h2>
+
+            <p>
+                Complete the form below and tell us how we can help.
+            </p>
+
+            <form id="contactForm">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="example@email.com"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="+254 7XX XXX XXX"
+                        >
+                    </div>
+                </sidebar>
+
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+
+                        <select id="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="General Enquiry">General Enquiry</option>
+                            <option value="Farmer Support">Farmer Support</option>
+                            <option value="Buyer Support">Buyer Support</option>
+                            <option value="Order Issues">Order Issues</option>
+                            <option value="Partnership">Partnership</option>
+                            <option value="Technical Support">Technical Support</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Your Message *</label>
+
+                    <textarea
+                        id="message"
+                        placeholder="Write your message here..."
+                        required
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Send Message
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    Your message has been validated successfully.
+                    This demonstration form does not yet send messages.
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</main>
+
+<!-- LOCATION -->
+<section class="location-section">
+
+    <h2>Find AgriConnect</h2>
+
+    <p>
+        We are building connections with farmers and buyers
+        across Kenya.
+    </p>
+
+    <div class="location-box">
+        <i class="fas fa-map-marked-alt"></i>
+
+        <h3>Serving Farmers Across Kenya</h3>
+
+        <p>
+            Our digital marketplace helps connect agricultural
+            producers with customers in different locations.
+        </p>
+    </div>
+
+</section>
+<section>
+    <div class="social-links">
+    <a href="https://www.facebook.com/Rawllince" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+    </a><div class="com">
+    <rawllince></rawllince>
+
+    <a href="https://github.com/Rawllince" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <i class="fab fa-github"></i>
+    </a>
+
+    <a href="https://www.x.com/Rawllince" aria-label="X">
+        <i class="fab fa-x-twitter"></i>
+    </a>
+
+    <a href="https://wa.me/+254726737491" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+            <h3><i class="fas fa-leaf"></i> AgriConnect</h3>
+
+            <p>
+                Connecting farmers to markets and customers to
+                fresh agricultural produce through technology.
+            </p>
+        </div>
+
+        <div>
+            <h3>Quick Links</h3>
+
+            <a href="home.html">Home</a>
+            <a href="catalogue.html">Produce Catalogue</a>
+            <a href="about-us.html">About Us</a>
+            <a href="contact-us.html">Contact Us</a>
+            <a href="product-detail.html">Product details</a>
+            <a href="auth.html">Login / Register</a>
+        </div>
+
+        <div>
+            <h3>Customer Support</h3>
+
+            <a href="order-tracking.html">Track Order</a>
+            <a href="cart.html">Shopping Cart</a>
+            <a href="auth.html">Login / Register</a>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        &copy; <span id="year"></span> AgriConnect.
+        All Rights Reserved.
+    </div>
+
+</footer>
+
+<script>
+
+    // MOBILE NAVIGATION
+    function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("show");
+    }
+
+    // AUTOMATIC COPYRIGHT YEAR
+    document.getElementById("year").textContent =
+        new Date().getFullYear();
+
+    // CONTACT FORM VALIDATION
+    const contactForm = document.getElementById("contactForm");
+
+    contactForm.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const subject = document.getElementById("subject").value;
+        const message = document.getElementById("message").value.trim();
+
+        if (!name || !email || !subject || !message) {
+            alert("Please complete all required fields.");
+            return;
+        }
+
+        document.getElementById("successMessage").style.display = "block";
+
+        contactForm.reset();
+
+    });
+
+</script>
+<script src="script.js"></script>
+</body>
+</html>

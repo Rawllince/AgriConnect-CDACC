@@ -1,0 +1,1314 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Order Tracking | AgriConnect</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root {
+    --green: #218838;
+    --dark-green: #14532d;
+    --light-green: #e8f5e9;
+    --orange: #f59e0b;
+    --blue: #2563eb;
+    --purple: #9333ea;
+    --red: #ef4444;
+    --background: #f4f8f3;
+    --white: #ffffff;
+    --text: #26352b;
+    --muted: #718071;
+    --border: #e5ece4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--background);
+    color: var(--text);
+}
+
+/* HEADER */
+
+.header {
+    background: white;
+    padding: 15px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 3px 15px rgba(0,0,0,.06);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--dark-green);
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.logo i {
+    background: var(--green);
+    color: white;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.logo span {
+    color: var(--orange);
+}
+
+.nav {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #526052;
+    font-weight: 800;
+    transition: .3s;
+}
+
+.nav a:hover,
+.nav a.active {
+    color: var(--green);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 11px 18px;
+    border-radius: 9px;
+    border: none;
+    text-decoration: none;
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-primary {
+    background: var(--green);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--dark-green);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    border: 1px solid var(--green);
+    color: var(--green);
+    background: white;
+}
+
+.btn-outline:hover {
+    background: var(--light-green);
+}
+
+.menu-toggle {
+    display: none;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    color: var(--dark-green);
+    cursor: pointer;
+}
+
+/* MAIN */
+
+.container {
+    width: 92%;
+    max-width: 1300px;
+    margin: 30px auto;
+}
+
+/* HERO */
+
+.hero {
+    background: linear-gradient(120deg, #14532d, #218838, #65a30d);
+    color: white;
+    padding: 35px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "🚚";
+    position: absolute;
+    font-size: 125px;
+    right: 55px;
+    top: 5px;
+    opacity: .2;
+}
+
+.hero h1 {
+    font-size: clamp(25px, 4vw, 34px);
+    margin-bottom: 8px;
+}
+
+.hero p {
+    opacity: .9;
+}
+
+.hero-tag {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.17);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* GENERAL CARD */
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 17px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.04);
+    margin-bottom: 23px;
+}
+
+.card-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card-heading h2 {
+    color: var(--dark-green);
+    font-size: 20px;
+}
+
+.card-heading i {
+    color: var(--green);
+    margin-right: 7px;
+}
+
+/* ORDER SEARCH */
+
+.search-card {
+    border-left: 5px solid var(--orange);
+}
+
+.search-card p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.search-form {
+    display: flex;
+    gap: 12px;
+}
+
+.search-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+}
+
+.search-form input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(33,136,56,.1);
+}
+
+/* ORDER INFORMATION */
+
+.order-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 23px;
+}
+
+.summary-box {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.04);
+}
+
+.summary-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    font-size: 21px;
+}
+
+.icon-green {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.icon-orange {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.icon-blue {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.summary-box small {
+    color: var(--muted);
+    display: block;
+    font-size: 12px;
+}
+
+.summary-box strong {
+    font-size: 16px;
+    display: block;
+    margin-top: 3px;
+}
+
+/* STATUS BADGES */
+
+.status {
+    display: inline-block;
+    padding: 6px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.in-transit {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.completed {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.pending {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+/* TIMELINE */
+
+.progress-intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.progress-intro p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 35px;
+    position: relative;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    height: 5px;
+    background: #e5ece4;
+    top: 23px;
+    left: 12%;
+    right: 12%;
+}
+
+.timeline-progress {
+    position: absolute;
+    height: 5px;
+    background: var(--green);
+    top: 23px;
+    left: 12%;
+    width: 50%;
+    z-index: 1;
+    transition: width .5s;
+}
+
+.step {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 0 7px;
+}
+
+.step-icon {
+    width: 50px;
+    height: 50px;
+    background: #e5ece4;
+    color: #849184;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    margin: 0 auto 13px;
+    border: 4px solid white;
+}
+
+.step.done .step-icon {
+    background: var(--green);
+    color: white;
+}
+
+.step.active .step-icon {
+    background: #dbeafe;
+    color: var(--blue);
+    border: 4px solid #93c5fd;
+    box-shadow: 0 0 0 5px #eff6ff;
+}
+
+.step h3 {
+    font-size: 13px;
+    color: var(--dark-green);
+    margin-bottom: 6px;
+}
+
+.step p {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.step.active h3 {
+    color: var(--blue);
+}
+
+/* DETAILS GRID */
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 23px;
+    align-items: start;
+}
+
+.detail-card {
+    background: white;
+    padding: 25px;
+    border-radius: 17px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.04);
+}
+
+.detail-card h2 {
+    font-size: 19px;
+    color: var(--dark-green);
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    margin-bottom: 18px;
+}
+
+.detail-icon {
+    min-width: 39px;
+    height: 39px;
+    border-radius: 10px;
+    background: var(--light-green);
+    color: var(--green);
+    display: grid;
+    place-items: center;
+}
+
+.detail-item small {
+    color: var(--muted);
+    display: block;
+    font-size: 12px;
+}
+
+.detail-item strong {
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+}
+
+.driver-box {
+    background: #f0f7ef;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 15px;
+}
+
+.driver-box h3 {
+    font-size: 15px;
+    color: var(--dark-green);
+    margin-bottom: 8px;
+}
+
+.driver-box a {
+    color: var(--green);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+/* RECEIPT */
+
+.receipt {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.receipt-header {
+    text-align: center;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed #cbd5cb;
+}
+
+.receipt-header i {
+    font-size: 35px;
+    color: var(--green);
+    margin-bottom: 8px;
+}
+
+.receipt-header h3 {
+    color: var(--dark-green);
+}
+
+.receipt-header p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+.receipt-row span:last-child {
+    font-weight: 800;
+    text-align: right;
+}
+
+.receipt-total {
+    background: #f0f7ef;
+    padding: 15px;
+    border-radius: 9px;
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-weight: 900;
+    color: var(--dark-green);
+}
+
+.payment-status {
+    text-align: center;
+    margin-top: 15px;
+    background: #dcfce7;
+    color: #15803d;
+    padding: 10px;
+    border-radius: 9px;
+    font-weight: 900;
+    font-size: 13px;
+}
+
+.receipt-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 17px;
+}
+
+.receipt-actions button {
+    flex: 1;
+}
+
+/* CONFIRMATION */
+
+.confirm-card {
+    background: linear-gradient(110deg, #fff7ed, #fffbeb);
+    border: 1px solid #fed7aa;
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 23px;
+}
+
+.confirm-card h3 {
+    color: #92400e;
+    margin-bottom: 5px;
+}
+
+.confirm-card p {
+    color: #a16207;
+    font-size: 13px;
+}
+
+.confirmed {
+    background: #dcfce7;
+    border-color: #86efac;
+}
+
+.confirmed h3,
+.confirmed p {
+    color: #166534;
+}
+
+/* FOOTER */
+
+footer {
+    background: #123c25;
+    color: white;
+    padding: 35px 5%;
+    margin-top: 50px;
+    text-align: center;
+}
+
+footer p {
+    margin: 9px 0;
+    font-size: 13px;
+    opacity: .85;
+}
+
+footer a {
+    color: #bbf7d0;
+    text-decoration: none;
+    margin: 0 8px;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media(max-width: 950px) {
+    .order-summary {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 768px) {
+    .header {
+        padding: 13px 5%;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 20px 5%;
+        gap: 18px;
+        box-shadow: 0 8px 15px rgba(0,0,0,.1);
+    }
+
+    .nav.show {
+        display: flex;
+    }
+
+    .auth-buttons {
+        display: none;
+    }
+
+    .hero {
+        padding: 25px 20px;
+    }
+
+    .hero::after {
+        right: 5px;
+        font-size: 90px;
+    }
+
+    .container {
+        width: 94%;
+    }
+
+    .card,
+    .detail-card {
+        padding: 18px;
+    }
+
+    .timeline {
+        margin-top: 25px;
+    }
+
+    .step h3 {
+        font-size: 11px;
+    }
+
+    .step p {
+        font-size: 10px;
+    }
+}
+
+@media(max-width: 500px) {
+    .logo {
+        font-size: 19px;
+    }
+
+    .logo i {
+        padding: 10px;
+    }
+
+    .order-summary {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form button {
+        width: 100%;
+    }
+
+    .timeline {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 0;
+    }
+
+    .timeline::before,
+    .timeline-progress {
+        display: none;
+    }
+
+    .step {
+        padding: 0 5px;
+    }
+
+    .step h3 {
+        font-size: 12px;
+    }
+
+    .confirm-card {
+        padding: 18px;
+    }
+
+    .confirm-card button {
+        width: 100%;
+    }
+
+    .receipt-actions {
+        flex-direction: column;
+    }
+
+    footer a {
+        display: inline-block;
+        margin: 5px;
+    }
+}
+
+/* PRINT RECEIPT */
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #receipt, #receipt * {
+        visibility: visible;
+    }
+
+    #receipt {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+    }
+
+    .receipt-actions {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="logo">
+        <i class="fas fa-seedling"></i>
+        Agri<span>Connect</span>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle"
+    aria-label="Toggle navigation" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <ul class="nav" id="navMenu">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="catalogue.html">Produce Catalogue</a></li>
+        <li><a href="farmer-profile.html">Farmer Profile</a></li>
+        <li><a href="cart.html">Cart (0)</a></li>
+        <li><a href="order-tracking.html" class="active">Track Order</a></li>
+       
+    </ul>
+
+    <div class="auth-buttons">
+        <a href="auth.html" class="btn btn-outline">Login</a>
+        <a href="auth.html" class="btn btn-primary">Register</a>
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <!-- HERO -->
+
+    <section class="hero">
+        <h1>Track Your Produce Order 🚚</h1>
+        <p>Stay updated on your farm produce delivery from the farm to your doorstep.</p>
+
+        <div class="hero-tag">
+            <i class="fas fa-shield-alt"></i>
+            Secure & Reliable Deliveries
+        </div>
+    </section>
+
+
+    <!-- ORDER SEARCH -->
+
+    <section class="card search-card">
+
+        <div class="card-heading">
+            <h2><i class="fas fa-search"></i> Find Your Order</h2>
+        </div>
+
+        <p>Enter your order reference number to check your delivery progress.</p>
+
+        <form class="search-form" id="searchForm">
+
+            <input
+                type="text"
+                id="orderId"
+                value="AC-1042"
+                placeholder="Enter Order ID (e.g. AC-1042)"
+                required
+            >
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-location-arrow"></i> Track Order
+            </button>
+
+        </form>
+
+        <p id="searchMessage" style="margin-top:12px;margin-bottom:0;"></p>
+
+    </section>
+
+
+    <!-- ORDER SUMMARY -->
+
+    <section class="order-summary">
+
+        <div class="summary-box">
+            <div class="summary-icon icon-green">
+                <i class="fas fa-receipt"></i>
+            </div>
+
+            <div>
+                <small>Order Reference</small>
+                <strong id="summaryOrder">AC-1042</strong>
+            </div>
+        </div>
+
+        <div class="summary-box">
+            <div class="summary-icon icon-orange">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+
+            <div>
+                <small>Order Date</small>
+                <strong>13 November 2026</strong>
+            </div>
+        </div>
+
+        <div class="summary-box">
+            <div class="summary-icon icon-blue">
+                <i class="fas fa-truck"></i>
+            </div>
+
+            <div>
+                <small>Delivery Status</small>
+                <strong id="summaryStatus">In Transit</strong>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- DELIVERY TIMELINE -->
+
+    <section class="card">
+
+        <div class="progress-intro">
+
+            <div>
+                <div class="card-heading" style="margin-bottom:5px;">
+                    <h2><i class="fas fa-route"></i> Delivery Progress</h2>
+                </div>
+
+                <p>Order #<span id="timelineOrder">AC-1042</span></p>
+            </div>
+
+            <span class="status in-transit" id="mainStatus">
+                <i class="fas fa-truck"></i> In Transit
+            </span>
+
+        </div>
+
+
+        <div class="timeline" id="timeline">
+
+            <div class="timeline-progress" id="timelineProgress"></div>
+
+            <div class="step done">
+                <div class="step-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+
+                <h3>1. Order Placed</h3>
+                <p>13 Nov, 09:15 AM</p>
+            </div>
+
+            <div class="step done">
+                <div class="step-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+
+                <h3>2. Harvested & Packed</h3>
+                <p>13 Nov, 11:30 AM</p>
+            </div>
+
+            <div class="step active">
+                <div class="step-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+
+                <h3>3. In Transit</h3>
+                <p>Current Status</p>
+            </div>
+
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+
+                <h3>4. Delivered</h3>
+                <p>Est. 04:30 PM</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DELIVERY AND RECEIPT DETAILS -->
+
+    <div class="details-grid">
+
+        <!-- LOGISTICS -->
+
+        <section class="detail-card">
+
+            <h2>
+                <i class="fas fa-truck-moving" style="color:#218838"></i>
+                Delivery Information
+            </h2>
+
+            <div class="detail-item">
+
+                <div class="detail-icon">
+                    <i class="fas fa-tractor"></i>
+                </div>
+
+                <div>
+                    <small>Origin Farm</small>
+                    <strong>Suneka, Kisii County</strong>
+                    <small>Farmer: Jane Moraa</small>
+                </div>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <div class="detail-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+
+                <div>
+                    <small>Delivery Destination</small>
+                    <strong>Kisumu Town Market Stall #14</strong>
+                </div>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <div class="detail-icon">
+                    <i class="fas fa-shuttle-van"></i>
+                </div>
+
+                <div>
+                    <small>Courier / Transporter</small>
+                    <strong>Kisii-Kisumu Express Shuttle</strong>
+                </div>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <div class="detail-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+
+                <div>
+                    <small>Estimated Delivery</small>
+                    <strong>13 November, 04:30 PM</strong>
+                </div>
+
+            </div>
+
+
+            <div class="driver-box">
+
+                <h3><i class="fas fa-user-circle"></i> Driver Contact Details</h3>
+
+                <p style="font-size:13px;margin-bottom:8px;">
+                    Delivery Driver: Kisii-Kisumu Express
+                </p>
+
+                <a href="tel:+254711222333">
+                    <i class="fas fa-phone"></i> +254 711 222 333
+                </a>
+
+            </div>
+        <!-- RECEIPT (Hidden until an order exists/is paid) -->
+        <section class="detail-card" id="receipt" style="display: none;">
+
+            <h2>
+                <i class="fas fa-file-invoice-dollar" style="color:#218838"></i>
+                Order Receipt
+            </h2>
+
+            <div class="receipt">
+
+                <div class="receipt-header">
+                    <i class="fas fa-seedling"></i>
+                    <h3>AgriConnect</h3>
+                    <p>Official Purchase Receipt</p>
+                    <p style="margin-top:8px;">
+                        Order: <span id="receipt-order-id">--</span>
+                    </p>
+                </div>
+
+                <div class="receipt-row">
+                    <span>Produce</span>
+                    <strong id="receipt-produce">--</strong>
+                </div>
+
+                <div class="receipt-row">
+                    <span>Quantity</span>
+                    <strong id="receipt-quantity">--</strong>
+                </div>
+
+                <div class="receipt-row">
+                    <span>Produce Cost</span>
+                    <strong id="receipt-subtotal">KES 0</strong>
+                </div>
+
+                <div class="receipt-row">
+                    <span>Transport Fee</span>
+                    <strong id="receipt-transport">KES 0</strong>
+                </div>
+
+                <div class="receipt-total">
+                    <span>Total Paid</span>
+                    <span id="receipt-total">KES 0</span>
+                </div>
+
+                <div class="receipt-row" style="margin-top:10px;">
+                    <span>M-Pesa Reference</span>
+                    <strong id="receipt-mpesa-ref">Pending</strong>
+                </div>
+
+                <div class="payment-status" id="receipt-status">
+                    <i class="fas fa-check-circle"></i>
+                    Payment Successful
+                </div>
+
+            </div>
+
+            <div class="receipt-actions">
+                <button class="btn btn-primary" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Receipt
+                </button>
+
+                <button class="btn btn-outline" onclick="downloadReceipt()">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <!-- DELIVERY CONFIRMATION -->
+
+    <section class="confirm-card" id="confirmCard">
+
+        <div>
+            <h3>
+                <i class="fas fa-box-open"></i>
+                Have you received your produce?
+            </h3>
+
+            <p>
+                Confirm delivery after physically checking and receiving your order.
+            </p>
+        </div>
+
+        <button class="btn btn-primary" id="confirmDelivery">
+            <i class="fas fa-check-circle"></i>
+            Confirm Delivery Received
+        </button>
+
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="logo" style="justify-content:center;color:white;">
+        <i class="fas fa-seedling"></i>
+        Agri<span>Connect</span>
+    </div>
+
+    <p>Connecting farmers to markets. Growing a better tomorrow.</p>
+
+    <p style="margin-top:15px;">
+        <a href="home.html">Home</a> |
+        <a href="catalogue.html">Produce Catalogue</a> |
+        <a href="farmer-dashboard.html">Farmer Dashboard</a> |
+        <a href="cart.html">Shopping Cart</a>
+        <a href="auth.html"> Login/Register</a>
+    </p>
+
+    <p>Contact: support@agriconnect.co.ke | +254 700 000 000</p>
+
+    <p>© 2026 AgriConnect. All Rights Reserved.</p>
+
+</footer>
+
+
+<script>
+
+// MOBILE NAVIGATION
+
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
+
+menuToggle.addEventListener("click", function() {
+
+    navMenu.classList.toggle("show");
+
+    const isOpen = navMenu.classList.contains("show");
+
+    menuToggle.setAttribute("aria-expanded", isOpen);
+
+    menuToggle.innerHTML = isOpen
+        ? '<i class="fas fa-times"></i>'
+        : '<i class="fas fa-bars"></i>';
+
+});
+
+
+// ORDER TRACKING
+
+const searchForm = document.getElementById("searchForm");
+
+searchForm.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const orderId = document.getElementById("orderId").value.trim();
+
+    const message = document.getElementById("searchMessage");
+
+    if (orderId.toUpperCase() === "AC-1042") {
+
+        document.getElementById("summaryOrder").textContent = orderId.toUpperCase();
+
+        document.getElementById("timelineOrder").textContent = orderId.toUpperCase();
+
+        message.style.color = "#218838";
+
+        message.textContent = "Order found successfully! Showing delivery information.";
+
+    } else {
+
+        message.style.color = "#ef4444";
+
+        message.textContent = "Order not found. Please check your order reference number.";
+
+    }
+
+});
+
+
+// DELIVERY CONFIRMATION
+
+const confirmButton = document.getElementById("confirmDelivery");
+
+confirmButton.addEventListener("click", function() {
+
+    const confirmation = confirm(
+        "Have you physically received and checked your produce?"
+    );
+
+    if (confirmation) {
+
+        const confirmCard = document.getElementById("confirmCard");
+
+        confirmCard.classList.add("confirmed");
+
+        confirmCard.querySelector("h3").innerHTML =
+            '<i class="fas fa-check-circle"></i> Delivery Confirmed!';
+
+        confirmCard.querySelector("p").textContent =
+            "Your order has been marked as received. Thank you for shopping with AgriConnect.";
+
+        confirmButton.innerHTML =
+            '<i class="fas fa-check"></i> Delivery Received';
+
+        confirmButton.disabled = true;
+
+        confirmButton.style.opacity = ".7";
+
+        // Update delivery status
+
+        document.getElementById("summaryStatus").textContent = "Delivered";
+
+        const status = document.getElementById("mainStatus");
+
+        status.className = "status completed";
+
+        status.innerHTML = '<i class="fas fa-check-circle"></i> Delivered';
+
+        // Update timeline
+
+        const steps = document.querySelectorAll(".step");
+
+        steps.forEach(function(step) {
+
+            step.classList.remove("active");
+
+            step.classList.add("done");
+
+            step.querySelector(".step-icon").innerHTML =
+                '<i class="fas fa-check"></i>';
+
+        });
+
+        document.getElementById("timelineProgress").style.width = "76%";
+
+    }
+
+});
+
+
+// DOWNLOAD RECEIPT
+
+function downloadReceipt() {
+
+    const receipt = document.getElementById("receipt").innerText;
+
+    const blob = new Blob([receipt], {
+        type: "text/plain"
+    });
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = "AgriConnect-Receipt-AC-1042.txt";
+
+    link.click();
+
+    URL.revokeObjectURL(link.href);
+
+}
+
+</script>
+<script src="script.js"></script>
+</body>
+</html>
