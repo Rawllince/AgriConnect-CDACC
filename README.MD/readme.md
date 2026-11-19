@@ -170,7 +170,7 @@ To deploy AgriConnect online, host the database, backend API, and frontend separ
 
 ### 2. Backend API (Render / Railway)
 1. Push your code to GitHub (ensure `.env` and `node_modules/` are excluded via `.gitignore`).
-2. Create a new **Web Service** on **[Render](https://render.com)** or **[Railway](https://railway.app)** pointing to your repository.
+2. Create a new **Web Service** on **[Render](https://render.com) pointing to your repository.
 3. Set the **Root Directory** to `backend`, **Build Command** to `npm install`, and **Start Command** to `node server.js`.
 4. Add the following **Environment Variables** in your hosting dashboard:
    - `MONGO_URI`: Your MongoDB Atlas connection string
@@ -183,12 +183,11 @@ To deploy AgriConnect online, host the database, backend API, and frontend separ
    ```javascript
    const API_URL = 'https://onrender.com/api';
    ```
-2. Deploy the `frontend/` folder to **[Netlify](https://netlify.com)**, **[Vercel](https://vercel.com)**, or **GitHub Pages**.
+2. Deploy the `frontend/` folder to .
 3. *(Optional)* In `backend/server.js`, restrict CORS to your live frontend domain for tighter security:
    ```javascript
-   app.use(cors({ origin: 'https://netlify.app' }));
-   ```
+   
 
 ###  Live Demo Links
-- **Frontend Application:** `https://netlify.app` *(Update after deploying)*
-- **Backend API Base URL:** `https://onrender.com` *(Update after deploying)*
+- **Frontend Application: `Static url	https://agriconnect-cdacc.onrender.com	
+- **Backend API Base URL:Server url	https://agriconnect-cdacc-web.onrender.com
